@@ -1,0 +1,41 @@
+services:
+  nest-app:
+    build:
+      context: ./
+      dockerfile: ./Dockerfile
+    # depends_on:
+    #   - mysql-container
+    #   - redis-container
+    restart: always
+    ports:
+      - 3030:3030
+    networks:
+      - common-networks
+
+  # mysql-container:
+  #   image: mysql
+  #   environment:
+  #     MYSQL_ROOT_PASSWORD: sens
+  #     MYSQL_DATABASE: login_test
+  #     TZ: Asia/Shanghai
+  #   restart: always
+  #   ports:
+  #     - 3306:3306
+  #   networks:
+  #     - common-networks
+  #   volumes:
+  #     - /root/mysql-volumes:/var/lib/mysql
+  #     - /etc/localtime:/etc/localtime:ro # 挂载主机的本地时间
+  # redis-container:
+  #   image: redis
+  #   restart: always
+  #   ports:
+  #     - 6379:6379
+  #   networks:
+  #     - common-networks
+  #   volumes:
+  #     - /root/redis-volumes/redis:/data
+
+networks:
+  common-networks:
+    driver: bridge
