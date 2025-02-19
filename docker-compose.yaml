@@ -14,6 +14,7 @@ services:
 
   employ-mysql-service:
     image: mysql
+    hostname: employ-mysql-service
     environment:
       MYSQL_ROOT_PASSWORD: sens
       MYSQL_DATABASE: employment
