@@ -1,10 +1,10 @@
 services:
-  nest-app:
+  employment-service:
     build:
       context: ./
       dockerfile: ./Dockerfile
-    # depends_on:
-    #   - mysql-container
+    depends_on:
+      - employ-mysql-service
     #   - redis-container
     restart: always
     ports:
@@ -12,20 +12,20 @@ services:
     networks:
       - common-networks
 
-  # mysql-container:
-  #   image: mysql
-  #   environment:
-  #     MYSQL_ROOT_PASSWORD: sens
-  #     MYSQL_DATABASE: login_test
-  #     TZ: Asia/Shanghai
-  #   restart: always
-  #   ports:
-  #     - 3306:3306
-  #   networks:
-  #     - common-networks
-  #   volumes:
-  #     - /root/mysql-volumes:/var/lib/mysql
-  #     - /etc/localtime:/etc/localtime:ro # 挂载主机的本地时间
+  employ-mysql-service:
+    image: mysql
+    environment:
+      MYSQL_ROOT_PASSWORD: sens
+      MYSQL_DATABASE: employment
+      TZ: Asia/Shanghai
+    restart: always
+    ports:
+      - 3306:3306
+    networks:
+      - common-networks
+    volumes:
+      - /root/mysql-volumes:/var/lib/mysql
+      - /etc/localtime:/etc/localtime:ro # 挂载主机的本地时间
   # redis-container:
   #   image: redis
   #   restart: always

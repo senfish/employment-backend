@@ -8,6 +8,7 @@ import {
   Delete,
   UseInterceptors,
   UploadedFile,
+  HttpCode,
 } from '@nestjs/common';
 import { UploadService } from './upload.service';
 import { CreateUploadDto } from './dto/create-upload.dto';
@@ -43,6 +44,7 @@ export class UploadController {
   //     }),
   //   }),
   // )
+  @HttpCode(200)
   @Post('/bank')
   @UseInterceptors(FileInterceptor('file'))
   async uploadBankFile(
@@ -50,15 +52,6 @@ export class UploadController {
     @Body() body,
   ) {
     const { type } = body;
-    console.log('type: ', type);
-    console.log('file: ', file);
-    function getFileContentAsBase64() {
-      try {
-        return readFileSync(file.path, { encoding: 'base64' });
-      } catch (err) {
-        throw new Error(err);
-      }
-    }
     function getAccessToken() {
       const options = {
         method: 'POST',
@@ -96,15 +89,18 @@ export class UploadController {
       // image 可以通过 getFileContentAsBase64("C:\fakepath\yuanyuan.jpg") 方法获取,
     };
     const res = await axios(options);
-    console.log('res: ', res.data);
-
     return {
-      // message: 'File uploaded successfully',
-      file: `http://localhost:3000/${file.filename}`,
-      ...res.data,
+      code: '200',
+      data: {
+        bankCardType: res?.data?.result?.bank_card_type,
+        bankName: res?.data?.result?.bank_name,
+        bank: res?.data?.result?.bank_card_number,
+      },
+      message: 'success',
     };
   }
 
+  @HttpCode(200)
   @Post('/id-card')
   @UseInterceptors(FileInterceptor('file'))
   async uploadIDCardFile(
@@ -112,8 +108,6 @@ export class UploadController {
     @Body() body,
   ) {
     const { type } = body;
-    console.log('type: ', type);
-    console.log('file: ', file);
     function getAccessToken() {
       const options = {
         method: 'POST',
@@ -155,13 +149,13 @@ export class UploadController {
       },
     };
     const res = await axios(options);
-    console.log('res: ', res.data);
-
     return {
-      // message: 'File uploaded successfully',
-      file: `http://localhost:3000/${file.filename}`,
-      number: res.data?.words_result?.['公民身份号码']?.words,
-      name: res.data?.words_result?.['姓名']?.words,
+      code: '200',
+      data: {
+        idCard: res.data?.words_result?.['公民身份号码']?.words,
+        name: res.data?.words_result?.['姓名']?.words,
+      },
+      message: 'success',
     };
   }
 }
