@@ -20,6 +20,8 @@ FROM node:18-alpine3.21 AS production-stage
 
 COPY --from=build-stage /app/dist /app
 COPY --from=build-stage /app/package.json /app/package.json
+COPY --from=build-stage /app/.env /app/.env
+COPY --from=build-stage /app/.env.production /app/.env.production
 
 WORKDIR /app
 RUN npm config set registry https://registry.npmmirror.com/

@@ -12,6 +12,14 @@ import { Task } from './task/entities/task.entity';
 import { EmploymentModule } from './employment/employment.module';
 import { EmploymentUser } from './employment/entities/employment.entity';
 
+// console.log('NODE_ENV', `.env.${process.env.NODE_ENV}`);
+// let envFilePath = ['.env'];
+// export const IS_DEV = process.env.NODE_ENV !== 'production';
+// if (IS_DEV) {
+//   envFilePath.unshift('.env.development');
+// } else {
+//   envFilePath.unshift('.env.production');
+// }
 @Module({
   imports: [
     ConfigModule.forRoot({

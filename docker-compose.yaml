@@ -14,7 +14,6 @@ services:
 
   employ-mysql-service:
     image: mysql
-    hostname: employ-mysql-service
     environment:
       MYSQL_ROOT_PASSWORD: sens
       MYSQL_DATABASE: employment
@@ -25,7 +24,8 @@ services:
     networks:
       - common-networks
     volumes:
-      - /root/mysql-volumes:/var/lib/mysql
+      - /Users/sens/Desktop/mysql-volumes:/var/lib/mysql
+      # - /root/mysql-volumes:/var/lib/mysql
       - /etc/localtime:/etc/localtime:ro # 挂载主机的本地时间
   # redis-container:
   #   image: redis
