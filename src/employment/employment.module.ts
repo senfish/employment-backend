@@ -6,10 +6,7 @@ import { Task } from 'src/task/entities/task.entity';
 import { EmploymentUser } from './entities/employment.entity';
 
 @Module({
-  imports: [
-    // TypeOrmModule.forFeature([Task]),
-    TypeOrmModule.forFeature([EmploymentUser]),
-  ],
+  imports: [TypeOrmModule.forFeature([EmploymentUser])],
   controllers: [EmploymentController],
   providers: [EmploymentService],
 })

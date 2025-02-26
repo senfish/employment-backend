@@ -11,15 +11,12 @@ import { TypeOrmModule } from '@nestjs/typeorm';
 import { Task } from './task/entities/task.entity';
 import { EmploymentModule } from './employment/employment.module';
 import { EmploymentUser } from './employment/entities/employment.entity';
+import { UserModule } from './user/user.module';
+import { User } from './user/entities/user.entity';
+import { JwtModule } from '@nestjs/jwt';
+import { AuthGuard } from './auth.guard';
+import { APP_GUARD } from '@nestjs/core';
 
-// console.log('NODE_ENV', `.env.${process.env.NODE_ENV}`);
-// let envFilePath = ['.env'];
-// export const IS_DEV = process.env.NODE_ENV !== 'production';
-// if (IS_DEV) {
-//   envFilePath.unshift('.env.development');
-// } else {
-//   envFilePath.unshift('.env.production');
-// }
 @Module({
   imports: [
     ConfigModule.forRoot({
@@ -39,32 +36,32 @@ import { EmploymentUser } from './employment/entities/employment.entity';
           database: 'employment',
           logging: true,
           poolSize: 10,
-          entities: [Task, EmploymentUser],
+          entities: [Task, EmploymentUser, User],
           // autoLoadEntities: true,
           synchronize: true,
         };
       },
     }),
-    // TypeOrmModule.forRoot({
-    //   type: 'mysql',
-    //   host: 'localhost',
-    //   port: 3306,
-    //   username: 'root',
-    //   password: 'sens',
-    //   database: 'employment',
-    //   logging: true,
-    //   poolSize: 10,
-    //   entities: [Task, EmploymentUser],
-    //   // autoLoadEntities: true,
-    //   synchronize: true,
-    // }),
+    JwtModule.register({
+      global: true,
+      secret: 'sens',
+      signOptions: { expiresIn: '7d' },
+    }),
     UploadModule,
     RefreshModule,
     EnterModule,
     TaskModule,
     EmploymentModule,
+    UserModule,
   ],
   controllers: [AppController],
-  providers: [AppService],
+  exports: [JwtModule],
+  providers: [
+    AppService,
+    {
+      provide: APP_GUARD,
+      useClass: AuthGuard,
+    },
+  ],
 })
 export class AppModule {}
