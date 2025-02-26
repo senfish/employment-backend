@@ -18,12 +18,14 @@ import { EmploymentListDto } from './dto/employment-list.dto';
 import * as ExcelJS from 'exceljs';
 import { Response } from 'express';
 import { EmploymentUser } from './entities/employment.entity';
+import { Public } from 'src/public';
 
 @Controller('employment')
 export class EmploymentController {
   constructor(private readonly employmentService: EmploymentService) {}
 
   @HttpCode(200)
+  @Public()
   @Post('/create')
   async create(@Body() createEmploymentDto: CreateEmploymentDto) {
     await this.employmentService.create(createEmploymentDto);
