@@ -5,5 +5,5 @@ export class CreateEmploymentDto {
   'bankBranch': string;
   'bankLocation': string;
   'phone': string;
-  'money': string | null;
+  'money'?: string | null;
 }

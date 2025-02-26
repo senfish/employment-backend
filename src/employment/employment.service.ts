@@ -16,7 +16,6 @@ export class EmploymentService {
     // private taskRepository: Repository<Task>,
   ) {}
   async create(createEmploymentDto: CreateEmploymentDto) {
-    // createEmploymentDto.money = createEmploymentDto.money || null;
     // 先用idCard去查一遍，如果有重复的话，就走更新接口
     const res = await this.employmentRepository.findOne({
       where: {
@@ -28,7 +27,6 @@ export class EmploymentService {
     } else {
       return this.employmentRepository.save(createEmploymentDto);
     }
-    // return 'This action adds a new employment';
   }
 
   async findAll() {

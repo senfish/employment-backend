@@ -9,6 +9,7 @@ import {
   HttpCode,
   Query,
   Res,
+  StreamableFile,
 } from '@nestjs/common';
 import { EmploymentService } from './employment.service';
 import { CreateEmploymentDto } from './dto/create-employment.dto';
@@ -194,7 +195,7 @@ export class EmploymentController {
       });
     });
 
-    // 设置响应头
+    // // 设置响应头
     res.setHeader(
       'Content-Type',
       'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet',
