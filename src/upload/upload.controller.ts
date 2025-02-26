@@ -19,6 +19,7 @@ import { extname, basename, parse } from 'path';
 import { readFileSync } from 'fs';
 import { Request } from 'express';
 import axios from 'axios';
+import { Public } from 'src/public';
 
 const AK = 's0kAIYeWnJVDQEvdqJK7AzkN';
 const SK = 'TXRNPmV22Fck0zlq2zf1JyNS08CH76U0';
@@ -45,6 +46,7 @@ export class UploadController {
   //   }),
   // )
   @HttpCode(200)
+  @Public()
   @Post('/bank')
   @UseInterceptors(FileInterceptor('file'))
   async uploadBankFile(
@@ -102,6 +104,7 @@ export class UploadController {
 
   @HttpCode(200)
   @Post('/id-card')
+  @Public()
   @UseInterceptors(FileInterceptor('file'))
   async uploadIDCardFile(
     @UploadedFile() file: Express.Multer.File,

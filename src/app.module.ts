@@ -4,8 +4,6 @@ import { ConfigService, ConfigModule } from '@nestjs/config';
 import { AppController } from './app.controller';
 import { AppService } from './app.service';
 import { UploadModule } from './upload/upload.module';
-import { RefreshModule } from './refresh/refresh.module';
-import { EnterModule } from './enter/enter.module';
 import { TaskModule } from './task/task.module';
 import { TypeOrmModule } from '@nestjs/typeorm';
 import { Task } from './task/entities/task.entity';
@@ -48,8 +46,6 @@ import { APP_GUARD } from '@nestjs/core';
       signOptions: { expiresIn: '7d' },
     }),
     UploadModule,
-    RefreshModule,
-    EnterModule,
     TaskModule,
     EmploymentModule,
     UserModule,
